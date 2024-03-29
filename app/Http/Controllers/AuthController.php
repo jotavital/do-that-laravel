@@ -18,7 +18,10 @@ class AuthController extends Controller
         try {
             $user = $this->service->registerUser($request->validated());
             if ($user) {
-                return response()->json($user);
+                return response()->json([
+                    'message' => trans('user.stored'),
+                    'data' => $user
+                ]);
             }
 
             throw new Exception(trans('user.errors.store'));
