@@ -6,4 +6,7 @@ return [
     'failed'   => 'These credentials do not match our records.',
     'password' => 'The password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'authentication_code' => [
+        'failed' => 'Failed to send the authentication code.'
+    ],
 ];
