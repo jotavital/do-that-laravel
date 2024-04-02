@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Mail\SendAuthenticationCode;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Mail;
 
 class AuthService
 {
@@ -18,15 +20,15 @@ class AuthService
         return $this->repository->store($attributes);
     }
 
-    public function sendAuthenticationCode(string $email): bool
+    public function sendAuthenticationCode(User $user): bool
     {
-        if (!$email) {
+        if (!$user) {
             return false;
         }
 
         $code = $this->twoFAService->generateCode();
 
-        dd(['sneing code ' . $code, 'email ' . $email]);
+        Mail::to($user)->queue(new SendAuthenticationCode($user, $code));
 
         return true;
     }

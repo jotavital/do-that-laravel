@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\GenericException;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,9 +36,14 @@ class AuthController extends Controller
     public function sendAuthenticationCode(Request $request): JsonResponse
     {
         try {
-            $request->validate(['email' => 'required|string|email|exists:users']);
+            $request->validate(['email' => 'required|string|email']);
+            $user = User::where('email', $request->email)->first();
 
-            $codeSent = $this->service->sendAuthenticationCode($request->email);
+            if (!$user) {
+                throw new GenericException(trans('validation.exists', ['attribute' => 'e-mail']));
+            }
+
+            $codeSent = $this->service->sendAuthenticationCode($user);
 
             if (!$codeSent) {
                 throw new GenericException(trans('auth.authentication_code.failed'));
