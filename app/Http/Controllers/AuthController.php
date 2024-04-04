@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\GenericException;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\AuthService;
@@ -13,6 +14,17 @@ class AuthController extends Controller
 {
     public function __construct(private $service = new AuthService())
     {
+    }
+
+    public function login(LoginRequest $request)
+    {
+        try {
+            if (!$request->password) {
+                return $this->service->loginByAuthenticationCode($request->email, $request->authentication_code);
+            }
+        } catch (GenericException $e) {
+            throw $e;
+        }
     }
 
     public function register(UserRequest $request): JsonResponse
