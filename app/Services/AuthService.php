@@ -61,7 +61,16 @@ class AuthService
 
             Auth::login($user);
 
-            return $user;
+            return [
+                'user' => $user,
+                'tokens' => [
+                    'access_token' => $user->createToken(
+                        'api',
+                        ['*'],
+                        now()->addDay()
+                    )->plainTextToken
+                ]
+            ];
         }
 
         throw new Exception(trans('auth.authentication_code.invalid'));

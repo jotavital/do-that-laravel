@@ -11,6 +11,8 @@ Route::prefix('v1')->group(function () {
 
         Route::get('send-authentication-code', 'sendAuthenticationCode');
     });
+
+    require 'v1/privateRoutes.php';
 });
 
 Route::get('/users', function (Request $request) {
