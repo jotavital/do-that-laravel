@@ -4,18 +4,22 @@ namespace App\Services;
 
 use App\Mail\SendAuthenticationCode;
 use App\Models\User;
+use App\Repositories\Repository;
 use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 
-class AuthService
+class AuthService extends Service
 {
+    protected $twoFAService;
+
     public function __construct(
-        private $repository = new UserRepository,
-        private $twoFAService = new TwoFactorAuthenticationService
+        protected Repository $repository,
     ) {
+        $this->twoFAService = new TwoFactorAuthenticationService();
+        $this->repository = new UserRepository(new User());
     }
 
     public function registerUser(array $attributes): ?User

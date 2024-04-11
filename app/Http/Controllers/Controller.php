@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 class Controller
 {
     public function __construct(
-        protected $service = new Service
+        protected Service $service
     ) {
     }
 
