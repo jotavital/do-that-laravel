@@ -6,16 +6,14 @@ use App\Exceptions\GenericException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class AuthController
 {
-    public function __construct()
+    public function __construct(protected AuthService $service)
     {
-        $this->service = new AuthService(new UserRepository(new User()));
     }
 
     public function login(LoginRequest $request)
