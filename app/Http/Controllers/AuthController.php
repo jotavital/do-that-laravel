@@ -7,11 +7,14 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Traits\RespondsJson;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController
 {
+    use RespondsJson;
+
     public function __construct(protected AuthService $service)
     {
     }
@@ -33,7 +36,7 @@ class AuthController
             $user = $this->service->registerUser($request->validated());
 
             if ($user) {
-                return response()->json([
+                return $this->jsonResponse([
                     'message' => trans('user.stored'),
                     'data' => $user
                 ]);
@@ -61,7 +64,7 @@ class AuthController
                 throw new GenericException(trans('auth.authentication_code.failed'));
             }
 
-            return response()->json(['success' => $codeSent]);
+            return $this->jsonResponse(['success' => $codeSent]);
         } catch (GenericException $e) {
             throw $e;
         }

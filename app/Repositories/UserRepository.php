@@ -12,6 +12,6 @@ class UserRepository
 
         $user->fill($attributes);
 
-        return $user->save() ? $user : false;
+        return $user->save() ? $user : null;
     }
 }
