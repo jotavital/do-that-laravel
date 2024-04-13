@@ -13,5 +13,9 @@ Route::prefix('private')
 
         Route::controller(TaskController::class)->prefix('tasks')->group(function () {
             Route::get('', 'getTasksByStatus');
+
+            Route::prefix('{task}')->group(function () {
+                Route::put('move', 'moveTask');
+            });
         });
     });

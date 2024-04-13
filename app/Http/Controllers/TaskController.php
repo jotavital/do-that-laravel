@@ -26,7 +26,29 @@ class TaskController extends BaseCrudController
 
             return $this->jsonResponse($this->repository->getTasksByStatus($statusId));
         } catch (\Exception $exception) {
-            return $this->jsonResponse($exception->getMessage(), $exception->getCode());
+            return $this->jsonError($exception);
+        }
+
+    }
+
+    public function moveTask(Request $request, Task $task): JsonResponse
+    {
+        $request->validate([
+            'order' => 'required|integer',
+            'statusId' => 'required|integer'
+        ]);
+
+        $statusId = (int)$request->get('statusId');
+        $order = $request->get('order');
+
+        try {
+            if ($statusId !== $task->status->id) {
+                $this->repository->changeTaskStatus($task, $statusId);
+            }
+
+            return $this->jsonResponse(true);
+        } catch (\Exception $exception) {
+            return $this->jsonError($exception);
         }
     }
 }
