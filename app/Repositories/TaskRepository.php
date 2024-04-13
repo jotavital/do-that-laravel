@@ -9,6 +9,9 @@ class TaskRepository
 {
     public function getTasksByStatus($statusId): Collection
     {
-        return Task::where('status_id', $statusId)->get();
+        return Task::query()
+            ->where('status_id', $statusId)
+            ->orderBy('order')
+            ->get();
     }
 }
