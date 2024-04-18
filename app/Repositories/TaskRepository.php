@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Status;
-use App\Models\Task;
+use App\Models\Mongo\Status;
+use App\Models\Mongo\Task;
 use Illuminate\Database\Eloquent\Collection;
 
 class TaskRepository

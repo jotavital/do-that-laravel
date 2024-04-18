@@ -8,7 +8,7 @@ Route::prefix('private')
     // ->middleware('auth:sanctum')
     ->group(function () {
         Route::controller(StatusController::class)->prefix('statuses')->group(function () {
-            Route::get('', 'index');
+            Route::get('', 'statusesWithTasks');
         });
 
         Route::controller(TaskController::class)->prefix('tasks')->group(function () {

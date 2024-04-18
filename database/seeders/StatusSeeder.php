@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Status;
+use App\Models\Mongo\Status;
 use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
@@ -13,9 +13,9 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         Status::insert([
-            ['title' => 'Pendetes', 'color' => 'red', 'created_at' => now()],
-            ['title' => 'Em Andamento', 'color' => 'blue', 'created_at' => now()],
-            ['title' => 'Concluídos', 'color' => 'green', 'created_at' => now()],
+            ['title' => 'Pendetes', 'color' => 'red', 'user_id' => 1, 'created_at' => now()->toDateTimeString()],
+            ['title' => 'Em Andamento', 'color' => 'blue', 'user_id' => 1, 'created_at' => now()->toDateTimeString()],
+            ['title' => 'Concluídos', 'color' => 'green', 'user_id' => 1, 'created_at' => now()->toDateTimeString()],
         ]);
     }
 }

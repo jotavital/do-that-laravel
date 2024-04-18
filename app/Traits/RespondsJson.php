@@ -22,6 +22,6 @@ trait RespondsJson
             $status = 400;
         }
 
-        return response()->json($exception->getMessage(), $status);
+        return response()->json(['message' => $exception->getMessage()], $status);
     }
 }
