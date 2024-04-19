@@ -32,4 +32,19 @@ class StatusController extends BaseCrudController
             return $this->jsonError($exception);
         }
     }
+
+    public function updateTasks(Status $status): JsonResponse
+    {
+        try {
+            request()->validate([
+                'tasks' => 'present|array',
+            ]);
+
+            $status->tasks = request()->tasks;
+
+            return $this->jsonResponse($status->save());
+        } catch (\Exception $exception) {
+            return $this->jsonError($exception);
+        }
+    }
 }
