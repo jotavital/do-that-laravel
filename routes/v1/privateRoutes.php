@@ -13,4 +13,7 @@ Route::prefix('private')
                 Route::put('tasks', 'updateTasks');
             });
         });
+
+
+        Route::resource('tasks', \App\Http\Controllers\TaskController::class);
     });

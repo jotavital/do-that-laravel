@@ -9,4 +9,6 @@ use MongoDB\Laravel\Eloquent\SoftDeletes;
 class Task extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name'];
 }

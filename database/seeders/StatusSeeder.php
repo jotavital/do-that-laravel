@@ -13,9 +13,9 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         Status::insert([
-            ['title' => 'Pendetes', 'color' => 'red', 'user_id' => 1, 'created_at' => now()->toDateTimeString()],
-            ['title' => 'Em Andamento', 'color' => 'blue', 'user_id' => 1, 'created_at' => now()->toDateTimeString()],
-            ['title' => 'Concluídos', 'color' => 'green', 'user_id' => 1, 'created_at' => now()->toDateTimeString()],
+            ['title' => 'Pendentes', 'color' => 'red', 'user_id' => 1, 'created_at' => now()->toIso8601String()],
+            ['title' => 'Em Andamento', 'color' => 'blue', 'user_id' => 1, 'created_at' => now()->toIso8601String()],
+            ['title' => 'Concluídos', 'color' => 'green', 'user_id' => 1, 'created_at' => now()->toIso8601String()],
         ]);
     }
 }

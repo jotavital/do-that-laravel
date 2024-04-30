@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mongo\Task;
 use App\Repositories\TaskRepository;
+use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,17 @@ class TaskController extends BaseCrudController
     {
         parent::__construct(new Task());
         $this->repository = new TaskRepository();
+        $this->service = new TaskService();
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $attributes = $request->validate([
+            'name' => 'required|string|min:3|max:100',
+            'statusId' => 'required|string|exists:statuses,_id',
+        ]);
+
+        return $this->jsonResponse($this->service->createTask($request->statusId, $attributes));
     }
 
     public function getTasksByStatus(Request $request): JsonResponse
