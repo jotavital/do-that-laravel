@@ -40,7 +40,10 @@ class StatusController extends BaseCrudController
                 'tasks' => 'present|array',
             ]);
 
-            $status->tasks = request()->tasks;
+            $tasks = collect(request()->tasks);
+            $tasks = $tasks->filter()->toArray();
+
+            $status->tasks = $tasks;
 
             return $this->jsonResponse($status->save());
         } catch (\Exception $exception) {
