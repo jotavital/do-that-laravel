@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\AuthService;
 use App\Traits\RespondsJson;
+use Database\Seeders\StatusSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -36,6 +37,8 @@ class AuthController
             $user = $this->service->registerUser($request->validated());
 
             if ($user) {
+                (new StatusSeeder())->run($user->id);
+
                 return $this->jsonResponse([
                     'message' => trans('user.stored'),
                     'data' => $user

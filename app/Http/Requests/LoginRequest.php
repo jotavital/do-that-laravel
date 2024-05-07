@@ -20,7 +20,7 @@ class LoginRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:mysql.users',
             'authentication_code' => 'required_without:password'
         ];
     }
